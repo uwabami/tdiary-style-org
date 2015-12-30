@@ -29,7 +29,7 @@ If you want to use this style, add @style into tdiary.conf below:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-** TODO [/]
+** TODO ToDo [/]
    - [ ] can't handlinng "alt" in image link: due to org-ruby limitation.
 
 ** Copyright
