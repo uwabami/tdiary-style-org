@@ -10,7 +10,7 @@
 # You can redistribute it and/or modify it under MIT/X11
 
 require 'org-ruby'
-require 'pp'
+require 'pygments'
 
 module TDiary
 	module Style
@@ -58,7 +58,7 @@ module TDiary
 
 			def to_html(string)
 				r = string.dup
-				renderer = Orgmode::Parser.new(string, {markup_file: File.dirname(__FILE__) + '/html_tags.yml'} )
+				renderer = Orgmode::Parser.new(string, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false } )
 				r = renderer.to_html
 				r = r.gsub(/{{(.+?)}}/m,'<%=\1%>')
 				r = r.gsub('&#8216;','\'').gsub('&#8217;','\'')
@@ -67,7 +67,7 @@ module TDiary
 
 			def get_categories
 				return [] unless @subtitle
-				org = Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + 'html_tags.yml'} )
+				org = Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false} )
 				unless org.headlines[0] == nil
 					cat = org.headlines[0].tags
 				else
@@ -80,7 +80,7 @@ module TDiary
 				unless @subtitle
 					return nil
 				else
-					return '* ' + Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + 'html_tags.yml'} ).headlines[0].headline_text
+					return '* ' + Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml'} ).headlines[0].headline_text
 				end
 			end
 
