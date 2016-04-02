@@ -24,8 +24,15 @@
    3. Commit your changes (`git commit -am 'Add some feature'`)
    4. Push to the branch (`git push origin my-new-feature`)
    5. Create new Pull Request
-** TODO ToDo [/]
-   - [ ] can't handlinng "alt" in image link: due to org-ruby limitation.
+** TODO
+   - on going... [2/3]
+     - [X] can't convert TAG to CATEGORY of tDiary
+     - [X] How to use plugin? -> RD style like:
+       #+BEGIN_EXAMPLE
+       ((%isbn_detail '978-4797386295'%))
+       #+END_EXAMPLE
+       Is this syntax best?
+     - [ ] can't handlinng "alt" in image link: due to org-ruby limitation.
 ** Copyright
   #+BEGIN_EXAMPLE
     Copyright (c) 2015 Youhei SASAKI <uwabami@gfd-dennou.org>

@@ -152,9 +152,9 @@ EOF
   def test_plugin_syntax
     @source = <<-'EOF'
 * Title
-{{plugin 'val'}}
+((%plugin 'val'%))
 
-{{plugin "val", 'val'}}
+((%plugin "val", 'val'%))
 
     EOF
     @diary.append(@source)
@@ -174,7 +174,7 @@ EOF
   def test_plugin_syntax_with_url
     @source = <<-'EOF'
 * Title
-{{plugin 'http://www.example.com/foo.html', "https://www.example.com/bar.html"}}
+((%plugin 'http://www.example.com/foo.html', "https://www.example.com/bar.html"%))
 
     EOF
     @diary.append(@source)

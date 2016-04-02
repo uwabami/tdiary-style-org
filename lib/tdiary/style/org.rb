@@ -21,8 +21,8 @@ module TDiary
 				@body ||= ''
 				@categories = get_categories
 				@stripped_subtitle = strip_subtitle
-				@subtitle_to_html = @subtitle ? to_html(@subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
-				@stripped_subtitle_to_html = @stripped_subtitle ? to_html('* ' + @stripped_subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
+				@subtitle_to_html = @subtitle ? to_html('* ' + @subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
+				@stripped_subtitle_to_html = @stripped_subtitle ? to_html(@stripped_subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
 				@body_to_html = to_html(@body)
 			end
 
@@ -60,7 +60,8 @@ module TDiary
 				r = string.dup
 				renderer = Orgmode::Parser.new(string, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false } )
 				r = renderer.to_html
-				r = r.gsub(/{{(.+?)}}/m,'<%=\1%>')
+				# for tDiary plugin
+				r = r.gsub(/\(\(%(.+?)%\)\)/m,'<%=\1%>')
 				r = r.gsub('&#8216;','\'').gsub('&#8217;','\'')
 				r = r.gsub('&#8220;','"').gsub('&#8221;','"')
 			end
@@ -69,7 +70,7 @@ module TDiary
 				return [] unless @subtitle
 				org = Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false} )
 				unless org.headlines[0] == nil
-					cat = org.headlines[0].tags
+					cat = org.headlines[0].tags.flatten
 				else
 					cat = []
 				end
