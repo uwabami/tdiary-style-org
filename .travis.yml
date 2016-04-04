@@ -10,5 +10,4 @@ matrix:
     - rvm: ruby-head
 before_install:
   - gem update bundler
-  - gem install emot
 script: bundle exec rake test
