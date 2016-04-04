@@ -8,5 +8,7 @@ rvm:
 matrix:
   allow_failures:
     - rvm: ruby-head
-before_install: gem update bundler
+before_install:
+  - gem update bundler
+  - gem install emot
 script: bundle exec rake test
