@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/uwabami/tdiary-style-org'
   spec.license       = 'MIT'
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = [".gitignore",".travis.yml","Gemfile","LICENSE","README.org","Rakefile","lib/tdiary-style-org.rb","lib/tdiary/style/org.rb","lib/tdiary/style/org/html_tags.yml","lib/tdiary/style/org/version.rb","tdiary-style-org.gemspec","test/tdiary/style/org-test.rb","test/test_helper.rb"]
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
