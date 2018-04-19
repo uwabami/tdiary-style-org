@@ -209,10 +209,10 @@ EOF
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
 <h3><%= subtitle_proc( Time.at( 1041346800 ), "Title" ) %></h3>
-<div class="highlight"><pre><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;nil</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="nf">require</span> <span class="ss">&#39;nil</span><span class="p">)</span>
 </pre></div>
 <h4>SubTitle</h4>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">test</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">test</span>
   <span class="k">return</span> <span class="kp">nil</span>
 <span class="k">end</span>
 </pre></div>
