@@ -6,3 +6,13 @@
   :heading4: h6
   :heading5: h7
   :heading6: h8
+:Tags:
+  "*":
+    :open: strong
+    :close: strong
+  "/":
+    :open: em
+    :close: em
+  "_":
+    :open: span class="underline"
+    :close: span

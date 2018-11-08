@@ -12,4 +12,4 @@ matrix:
     - rvm: ruby-head
 before_install:
   - gem update bundler
-script: bundle exec rake test
+script: bundle exec rake spec

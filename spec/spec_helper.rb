@@ -1,5 +1,4 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'test-unit'
 require 'tdiary/core_ext'
 require 'tdiary/comment_manager'
 require 'tdiary/referer_manager'

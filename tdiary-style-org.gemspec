@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
   spec.version       = TDiary::Style::Org::VERSION
   spec.authors       = ['Youhei SASAKI']
   spec.email         = ['uwabami@gfd-dennou.org']
-  spec.description   = %q{org-mode style for tDiary, using org-ruby}
-  spec.summary       = %q{org-mode style for tDiary, using org-ruby}
+  spec.description   = %q{Org-mode style for tDiary, using org-ruby}
+  spec.summary       = %q{Org-mode style for tDiary, using org-ruby}
   spec.homepage      = 'https://github.com/uwabami/tdiary-style-org'
   spec.license       = 'MIT'
 
-  spec.files         = [".gitignore",".travis.yml","Gemfile","LICENSE","README.org","Rakefile","lib/tdiary-style-org.rb","lib/tdiary/style/org.rb","lib/tdiary/style/org/html_tags.yml","lib/tdiary/style/org/version.rb","tdiary-style-org.gemspec","test/tdiary/style/org-test.rb","test/test_helper.rb"]
+  spec.files         = [".gitignore",".rspec",".travis.yml","Gemfile","LICENSE","README.org","Rakefile","lib/tdiary-style-org.rb","lib/tdiary/style/org.rb","lib/tdiary/style/org/html_tags.yml","lib/tdiary/style/org/version.rb","tdiary-style-org.gemspec","spec/spec_helper.rb", "spec/tdiary/style/org_spec.rb"]
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "test-unit"
+  spec.add_development_dependency "rspec"
 end

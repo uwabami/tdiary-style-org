@@ -39,7 +39,7 @@ module TDiary
 			def to_src
 				r = ''
 				r << "#{@subtitle}\n" if @subtitle
-				r << @body.gsub(/\n\n\z/io,"\n")
+				r << @body
 			end
 
 			def do_html4(date, idx, opt)
@@ -48,7 +48,7 @@ module TDiary
 					"<h3><%= subtitle_proc( Time.at( #{date.to_i} ), #{$1.dump.gsub( /%/, '\\\\045' )} ) %></h3>"
 				end
 				if opt['multi_user'] and @author then
-					subtitle.sub!(/<\/h3>/,%Q|[#{@author}]</h3>|)
+					subtitle.sub!(/<\/h3>/,%Q|[[#{@author}]]</h3>|)
 				end
 				r = subtitle
 				r << @body_to_html
@@ -62,6 +62,7 @@ module TDiary
 				r = renderer.to_html
 				# for tDiary plugin
 				r = r.gsub(/\(\(%(.+?)%\)\)/m,'<%=\1%>')
+				r = r.gsub(/&lt;/,'<').gsub(/&gt;/,'>')
 				r = r.gsub('&#8216;','\'').gsub('&#8217;','\'')
 				r = r.gsub('&#8220;','"').gsub('&#8221;','"')
 			end
@@ -103,14 +104,14 @@ module TDiary
 				section = nil
 				body.each_line do |l|
 					case l
-					when /^\#[^\#]/
+					when /^\*[^\*]/
 						if in_code_block
 							section << l
 						else
 							@sections << OrgSection.new(section, author) if section
 							section = l
 						end
-					when /^```/
+					when /^#\+/
 						in_code_block = !in_code_block
 						section << l
 					else
