@@ -28,8 +28,9 @@ Org-mode style for tDiary format.
   - on going... [2/3]
     - [X] can't convert TAG to CATEGORY of tDiary
     - [X] How to use plugin? -> RD style like: =((%plugin, 'val'%))=
-      - Is this syntax best?
     - [ ] can't handlinng "alt" in image link: due to org-ruby limitation.
+* Limitiation
+  - you can't use heredoc in plugin.
 * Copyright
  #+BEGIN_EXAMPLE
    Copyright (c) 2015-2016 Youhei SASAKI <uwabami@gfd-dennou.org>
