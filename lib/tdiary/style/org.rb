@@ -62,7 +62,6 @@ module TDiary
 				r = renderer.to_html
 				# for tDiary plugin
 				r = r.gsub(/\(\(%(.+?)%\)\)/m,'<%=\1%>')
-				r = r.gsub(/&lt;/,'<').gsub(/&gt;/,'>')
 				r = r.gsub('&#8216;','\'').gsub('&#8217;','\'')
 				r = r.gsub('&#8220;','"').gsub('&#8221;','"')
 			end
