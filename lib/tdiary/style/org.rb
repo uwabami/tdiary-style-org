@@ -28,7 +28,7 @@ module TDiary
 			end
 
 			def subtitle=(subtitle)
-				@subtitle = (subtitle || '').sub(/^\* /,"\*#{categories_to_string} ")
+				@subtitle = (subtitle || '').sub(/^\* /,"\##{categories_to_string} ")
 				@strip_subtitle = strip_subtitle
 			end
 
@@ -44,20 +44,18 @@ module TDiary
 			end
 
 			def do_html4(date, idx, opt)
-				# タグ無し見出し
-				stripped_title = @stripped_subtitle_to_html || ""
-				# カテゴリ
 				cat_str = ""
 				if @categories and !@categories.empty?
 					cat_str = @categories.collect {|c| %Q|[#{c}]| }.join
 				end
-				# タグとカテゴリの結合
-				full_title = "#{cat_str} #{stripped_title}"
-				r = %Q|<h3><%= subtitle_proc( Time.at( #{date.to_i} ), #{full_title.dump.gsub( /%/, '\\\\045' )} ) %></h3>|
-				if opt['multi_user'] and @author then
-					subtitle.sub!(/<\/h3>/,%Q|[[#{@author}]]</h3>|)
+				subtitle = to_html('* ' + "#{cat_str}" + @subtitle)
+				subtitle.sub!( %r!<h3>(.+?)</h3>!m ) do
+					"<h3 id=\"#{date.strftime('%Y%m%d')}p#{sprintf('%02d', idx)}\"><%= subtitle_proc( Time.at( #{date.to_i} ), #{$1.dump.gsub( /%/, '\\\\045' )} ) %></h3>"
 				end
-				# r = subtitle
+				if opt['multi_user'] and @author then
+					full_subtitle.sub!(/<\/h3>/,%Q|[[#{@author}]]</h3>|)
+				end
+				r = subtitle
 				r << @body_to_html
 			end
 
@@ -71,12 +69,11 @@ module TDiary
 				r = r.gsub(/\(\(%(.+?)%\)\)/m,'<%=\1%>')
 				r = r.gsub('&#8216;','\'').gsub('&#8217;','\'')
 				r = r.gsub('&#8220;','"').gsub('&#8221;','"')
-				r
 			end
 
 			def get_categories
-				return [] unless @subtitle
-				org = Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false} )
+				return [] if @subtitle.nil? || @subtitle.empty?
+				org = Orgmode::Parser.new("* " + @subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false} )
 				unless org.headlines[0] == nil
 					cat = org.headlines[0].tags.flatten
 				else
@@ -86,10 +83,12 @@ module TDiary
 			end
 
 			def strip_subtitle
-				unless @subtitle
-					return nil
+				return nil if @subtitle.nil? || @subtitle.empty?
+				org =  Orgmode::Parser.new("* " + @subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml'} )
+				if org.headlines[0]
+					return org.headlines[0].headline_text
 				else
-					return '* ' + Orgmode::Parser.new(@subtitle, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml'} ).headlines[0].headline_text
+					return @subtitle
 				end
 			end
 
