@@ -18,16 +18,17 @@ module TDiary
 			def initialize(fragment, author = nil)
 				@author = author
 				@subtitle, @body = fragment.split(/\n/, 2)
+				@subtitle.sub!(/^\*\s*/,'')
 				@body ||= ''
 				@categories = get_categories
 				@stripped_subtitle = strip_subtitle
 				@subtitle_to_html = @subtitle ? to_html('* ' + @subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
-				@stripped_subtitle_to_html = @stripped_subtitle ? to_html(@stripped_subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
+				@stripped_subtitle_to_html = @stripped_subtitle ? to_html('* ' + @stripped_subtitle).strip.gsub(/\A<h\d>|<\/h\d>\z/io, '') : nil
 				@body_to_html = to_html(@body)
 			end
 
 			def subtitle=(subtitle)
-				@subtitle = (subtitle || '').sub(/^# /,"\##{categories_to_string} ")
+				@subtitle = (subtitle || '').sub(/^\* /,"\*#{categories_to_string} ")
 				@strip_subtitle = strip_subtitle
 			end
 
@@ -43,14 +44,20 @@ module TDiary
 			end
 
 			def do_html4(date, idx, opt)
-				subtitle = to_html(@subtitle)
-				subtitle.sub!( %r!<h3>(.+?)</h3>!m ) do
-					"<h3><%= subtitle_proc( Time.at( #{date.to_i} ), #{$1.dump.gsub( /%/, '\\\\045' )} ) %></h3>"
+				# タグ無し見出し
+				stripped_title = @stripped_subtitle_to_html || ""
+				# カテゴリ
+				cat_str = ""
+				if @categories and !@categories.empty?
+					cat_str = @categories.collect {|c| %Q|[#{c}]| }.join
 				end
+				# タグとカテゴリの結合
+				full_title = "#{cat_str} #{stripped_title}"
+				r = %Q|<h3><%= subtitle_proc( Time.at( #{date.to_i} ), #{full_title.dump.gsub( /%/, '\\\\045' )} ) %></h3>|
 				if opt['multi_user'] and @author then
 					subtitle.sub!(/<\/h3>/,%Q|[[#{@author}]]</h3>|)
 				end
-				r = subtitle
+				# r = subtitle
 				r << @body_to_html
 			end
 
@@ -58,12 +65,13 @@ module TDiary
 
 			def to_html(string)
 				r = string.dup
-				renderer = Orgmode::Parser.new(string, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false } )
+				renderer = Orgmode::Parser.new(r, {markup_file: File.dirname(__FILE__) + '/org/html_tags.yml', skip_syntax_highlight: false } )
 				r = renderer.to_html
 				# for tDiary plugin
 				r = r.gsub(/\(\(%(.+?)%\)\)/m,'<%=\1%>')
 				r = r.gsub('&#8216;','\'').gsub('&#8217;','\'')
 				r = r.gsub('&#8220;','"').gsub('&#8221;','"')
+				r
 			end
 
 			def get_categories
