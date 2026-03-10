@@ -9,6 +9,11 @@
 # Copyright (C) 2015 Youhei SASAKI <uwabami@gfd-dennou.org>
 # You can redistribute it and/or modify it under MIT/X11
 
+## for org-ruby
+def File.exists?(path)
+	#warn "File.exists? is deprecated (called from: #{caller.first})"
+	exist?(path)
+end
 require 'org-ruby'
 require 'pygments'
 
@@ -39,7 +44,7 @@ module TDiary
 
 			def to_src
 				r = ''
-				r << "#{@subtitle}\n" if @subtitle
+				r << "* #{@subtitle}\n" if @subtitle
 				r << @body
 			end
 

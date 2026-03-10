@@ -28,7 +28,7 @@ EOF
 				@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "[Test1][Test2]subTitle" ) %></h3>
 <p>honbun</p>
 <h4>subTitleH4</h4>
 <p>honbun</p>
@@ -46,7 +46,7 @@ EOF
 			before do
 				@html = <<-'EOF'
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "[Test1][Test2]subTitle" ) %></h3>
 <p>honbun</p>
 <h4>subTitleH4</h4>
 <p>honbun</p>
@@ -90,7 +90,7 @@ EOF
 			@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "replaceTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "[Test3][Test4]replaceTitle" ) %></h3>
 <p>replace</p>
 <h4>replaceTitleH4</h4>
 <p>replace</p>
@@ -115,7 +115,7 @@ EOF
 			@html = <<-EOF
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <ul>
   <li><a href="http://www.google.com">http://www.google.com</a></li>
   <li><a href="https://www.google.com">google</a></li>
@@ -142,7 +142,7 @@ EOF
 			@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><%=plugin 'val'%></p>
 <p><%=plugin "val", 'val'%></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
@@ -165,7 +165,7 @@ EOF
 			@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p><%=plugin 'http://www.example.com/foo.html', "https://www.example.com/bar.html"%></p>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
 </div>
@@ -182,9 +182,9 @@ EOF
 * subTitle
 
 #+BEGIN_SRC ruby
- def class
-   @foo = 'bar'
- end
+def class
+  @foo = 'bar'
+end
 #+END_SRC
 EOF
 			@diary.append(source)
@@ -192,9 +192,9 @@ EOF
 			@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">class</span>
-  <span class="vi">@foo</span> <span class="o">=</span> <span class="s1">&#39;bar&#39;</span>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">class</span>
+<span class="w">  </span><span class="vi">@foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
 <span class="k">end</span>
 </pre></div>
 <%=section_leave_proc( Time.at( 1041346800 ) )%>
@@ -226,7 +226,7 @@ EOF
 			@html = <<-'EOF'
 <div class="section">
 <%=section_enter_proc( Time.at( 1041346800 ) )%>
-<h3><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
+<h3 id="20030101p01"><%= subtitle_proc( Time.at( 1041346800 ), "subTitle" ) %></h3>
 <p>文章中の <strong>strong</strong> はどうなるんだっけ?</p>
 <p>文章中の <em>emphasis</em> はどうなるんだっけ?</p>
 <p>文章中の <span class="underline">underline</span> はどうなるんだっけ?</p>
