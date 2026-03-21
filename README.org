@@ -1,4 +1,10 @@
 #+TITLE: TDiary::Style::Org
+  #+begin_export html
+  <p>
+  <img src="https://uwabami.github.io/tdiary-style-org/badge.svg" height="20">
+  <span class="icon-github"><a href="https://github.com/uwabami/tdiary-style-org/">{% octicon mark-github height:20 %}</a></span>
+  </p>
+  #+end_export
 Org-mode style for tDiary format.
 * Installation
   Add this line to your application's Gemfile.local:
